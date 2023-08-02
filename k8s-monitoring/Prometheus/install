@@ -1,0 +1,15 @@
+## ADD, UPDATE AND INSTALL using Helm:
+
+helm repo add prometheus-community https://prometheus-community.github.io/helm-charts
+
+helm repo update
+
+helm install prometheus prometheus-community/prometheus --namespace=prometheus --set prometheus-node-exporter.hostRootFsMount.enabled=false
+
+## Expose Prometheus-Server (UI) Service
+
+kubectl expose service prometheus-server --type=NodePort --target-port=9090 --name=prometheus-server-ext
+
+## Expose prometheus-kube-state-metrics Service
+
+kubectl expose service prometheus-kube-state-metrics --type=NodePort --target-port=8080 --name=prometheus-kube-state-metrics-ext
